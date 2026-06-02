@@ -25,6 +25,8 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { letter-spacing: 0 !important; }
+  html { overflow-x: hidden; }
   html, body { background: var(--bg); color: var(--text); }
   body {
     font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -228,6 +230,7 @@
   .hero {
     padding-top: 110px; padding-bottom: 80px;
     position: relative; isolation: isolate;
+    overflow: clip;
   }
   .hero-orb-1 { width: 520px; height: 520px; left: -120px; top: -40px; background: radial-gradient(circle, rgba(59,130,246,0.55), transparent 65%); }
   .hero-orb-2 { width: 620px; height: 620px; right: -160px; top: 40px; background: radial-gradient(circle, rgba(139,92,246,0.55), transparent 65%); }
@@ -306,6 +309,8 @@
   .chip {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 7px 12px;
+    white-space: nowrap;
+    flex: none;
     border-radius: 999px;
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.12);
@@ -652,6 +657,103 @@
 
   /* ---------- Selection ---------- */
   ::selection { background: rgba(139,92,246,0.4); color: #fff; }
+
+  /* ================================================================
+     MOBILE — tablet
+     ================================================================ */
+  @media (max-width: 880px) {
+    section { padding: 72px 0; }
+    .sec-head { margin-bottom: 44px; }
+    .agents-head { padding: 18px 20px; flex-direction: column; align-items: flex-start; gap: 14px; }
+    .agents-tabs { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .agents-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn { flex: none; }
+  }
+
+  /* ================================================================
+     MOBILE — phones
+     ================================================================ */
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    .container { padding: 0 20px; }
+    section { padding: 60px 0; }
+
+    /* Nav */
+    nav { padding: 14px 0; }
+    .brand { font-size: 16px; gap: 10px; }
+    .nav-wrap .btn-sm { padding: 9px 14px; font-size: 13px; }
+
+    /* Hero */
+    .hero { padding-top: 64px; padding-bottom: 48px; }
+    .hero-sub { font-size: 16.5px; margin-top: 18px; }
+    .hero-cta { margin-top: 28px; gap: 10px; flex-direction: column; align-items: stretch; }
+    .hero-cta .btn { width: 100%; padding: 15px 22px; font-size: 15px; }
+    .hero-meta { gap: 14px 20px; margin-top: 28px; font-size: 12.5px; }
+    .pill { font-size: 12px; }
+
+    /* Orbs softened so they don't wash out text on small screens */
+    .hero-orb-1, .hero-orb-2, .hero-orb-3 { opacity: 0.4; filter: blur(70px); }
+
+    /* Section headings */
+    .section-eyebrow { margin-bottom: 14px; font-size: 12px; }
+    .section-sub { font-size: 16px; }
+    .sec-head { margin-bottom: 36px; }
+
+    /* Metrics */
+    .metric-grid { gap: 14px; margin-top: 40px; }
+    .metric-card { padding: 24px; }
+    .metric-card .badge { margin-bottom: 12px; }
+    .metric-label { font-size: 13.5px; margin-top: 10px; }
+
+    /* Features */
+    .feature-grid { gap: 14px; }
+    .feature-card { padding: 24px; min-height: 0; gap: 14px; }
+    .feature-card.lead { grid-row: auto; }
+    .feature-title { font-size: 20px; }
+    .feature-desc { font-size: 14.5px; }
+    .feature-tags { margin-top: 8px; }
+
+    /* Agents log — compact stacked rows */
+    .agents-panel { border-radius: 16px; }
+    .agents-head h3 { font-size: 14.5px; }
+    .agent-row {
+      grid-template-columns: 36px 1fr auto;
+      gap: 14px;
+      padding: 16px 20px;
+      align-items: center;
+    }
+    .agent-row .av { align-self: start; }
+    .agent-arrow { display: none; }
+    .agent-task { white-space: normal; }
+
+    /* Workflow */
+    .workflow { gap: 14px; }
+    .step { padding: 24px; }
+    .step-title { font-size: 20px; }
+
+    /* Pricing */
+    .price-grid { gap: 16px; }
+    .price-card { padding: 28px 24px; min-height: 0; }
+    .price-num { font-size: 48px; }
+    .price-card.featured { order: -1; }
+
+    /* CTA */
+    .cta-card { padding: 40px 22px; }
+    .cta-card .btn { width: 100%; }
+    .cta-card > div:last-child { flex-direction: column; align-items: stretch; }
+
+    /* Footer */
+    .foot-grid { gap: 28px 24px; margin-bottom: 36px; }
+    .foot-bottom { flex-direction: column; align-items: flex-start; }
+
+    /* Logos */
+    .logos { gap: 24px 32px; padding: 16px 0; }
+  }
+
+  @media (max-width: 380px) {
+    .hero-meta { gap: 10px 16px; }
+    .agent-flow, .agent-metric { display: none; }
+  }
 </style>
 </head>
 <body data-screen-label="Nexus AI Landing">
@@ -732,11 +834,11 @@
           +6.21% this week
         </div>
         <div class="actions">
-          <span class="chip" style="width: 200px">
+          <span class="chip">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
             New lead
           </span>
-          <span class="chip" style="width: 200px">
+          <span class="chip">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
             Run flow
           </span>
@@ -836,8 +938,7 @@
   <div class="container">
     <div class="sec-head reveal">
       <div class="section-eyebrow">Capabilities</div>
-      <h2 class="section-title">Three departments.
-One runtime.</h2>
+      <h2 class="section-title">Three departments. <br/><span class="grad">One runtime.</span></h2>
       <p class="section-sub" style="margin-top:18px;">Specialised agents share context through a single memory layer — so your sales agent knows what support already promised, and analytics sees both.</p>
     </div>
 
